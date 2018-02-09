@@ -8,9 +8,16 @@ import { LOAD_DATA } from './actions'
 //  };
 
 const initialState = {
-
+    iCity: [
+        'Seattle',
+        'San Jose',
+        'Burbank',
+        'Dallas',
+        'Washington',
+        'Chicago',
+        'Tulsa',
+    ]
 }
-
 
 export const reducer = (state = initialState, action) => {
     switch(action.type){

@@ -1,15 +1,24 @@
 import React from 'react';
 import {CustomNav} from './helper';
+import {connect} from 'react-redux';
 
 const Nav = props => {
     return (
         <nav>
             <ul className="tabs padding-bottom-medium">
-                <CustomNav to='/' label='Home' generalClassName="tab-title" activeOnlyWhenExact={true} />
-
+                { props.city.map((city, idx) => 
+                    (
+                    <CustomNav to={`/${city}`} key={idx} label={city} generalClassName="tab-title" activeOnlyWhenExact={true} />)
+               )}
             </ul>
         </nav>
     )
 }
 
-export default Nav;
+const mapStateToProps = (state) => {
+    return {
+        city: state.iCity
+    }
+}
+
+export default connect(mapStateToProps)(Nav)

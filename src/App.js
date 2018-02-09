@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Nav from './components/Nav';
+import City from './components/City';
 import {
   Switch,
   Route
@@ -8,22 +9,28 @@ import {
 import {get} from './store/actions';
 import {connect} from 'react-redux';
 
-class App extends Component {
-  componentDidMount(){
-    this.props.getCityWeather("London")
-  }
-  
+
+const NoMatch = () => (
+  <div><h1>Page Not Found...!</h1></div>
+)
+
+const Home = () => (
+  <div><h1>Welcome!</h1></div>
+)
+
+class App extends Component { 
   render() {
-    console.log(this.props.weather)
     return (
       <div className="App margin-horiz-large margin-vert-large">
         <h1>Hojo Weather Forecast</h1>
         <Nav />
           <div className='card'>
-            
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/:city' component={City} />
+              <Route component={NoMatch} />
+            </Switch>
           </div>
-        
-
       </div>
     );
   }
@@ -42,6 +49,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
