@@ -1,4 +1,4 @@
-//import { SOME_ACTION } from './actions'
+import { LOAD_DATA } from './actions'
 
 // const CreateUid = () => {
 //     // Math.random should be unique because of its seeding algorithm.
@@ -14,6 +14,8 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
     switch(action.type){
+        case LOAD_DATA: 
+            return {...state, weather: action.payload}
         default:
             return state;
     }

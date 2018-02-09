@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-export const API_URL = "";
+export const API_URL = "http://api.openweathermap.org/data/2.5/weather";
 export const DATA_STATUS_HANDLER = 'DATA_STATUS_HANDLER';
+export const LOAD_DATA = 'LOAD_DATA';
+
 
 
 export const dataResultHandler = (actionType, stateObjectType, stateObjectResult) => {
@@ -14,39 +16,60 @@ export const dataResultHandler = (actionType, stateObjectType, stateObjectResult
   }
 }
 
-// export const get = () => {
-//   return (dispatch, getState, url) => {
-//     dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingData', true) );
-//     console.log(`Getting Data... ${url}`);
+export const get = (city) => {
+  return (dispatch, getState, url) => {
+    dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingData', true) );
+    console.log(`Getting Data... ${url}`);
 
-//     axios.get(`${url}`)
-//       .then( ({data: /*products*/}) => {
-//         //setTimeout( () => { dispatch( {type: LOAD_DATA, payload: products} ) }, 1);
-//       })
-//       .catch( error => {
-//         if (error.response) {
-//             // The request was made and the server responded with a status code
-//             // that falls out of the range of 2xx
-//             //  console.log(error.response.data.message);
-//             //  console.log(error.response.status);
-//             //  console.log(error.response.headers);
-//             console.log(`Error Response: ${error.response}`);
-//         } else if (error.request) {
-//           // The request was made but no response was received
-//           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-//           // http.ClientRequest in node.js
-//           console.log(`Error Request: ${error.request}`);
-//         } else {
-//           // Something happened in setting up the request that triggered an Error
-//           console.log(`General Error: ${error.message}`);
-//         }
-//         console.log("Error has occured in loading data...");
-//         console.log(error);
-//         dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingError', true) );
+    axios.get(url, 
+      {params: {
+        APPID: '341b9c981559718765cdcfba706783db',
+        units: 'imperial',
+        q: `${city}`
+      }}
+    )
+      .then( (response) => {
+        //setTimeout( () => { dispatch( {type: LOAD_DATA, payload: products} ) }, 1);
+        const {data: {main, weather}} = response
+        console.log("response")
+        console.log(response)
+        const returnObj = {
+          temp: Math.round(main.temp),
+          average: Math.round((main.temp_min+main.temp_max)/2),
+          tempMin: Math.round( main.temp_min ),
+          tempMax: Math.round( main.temp_max ),
+          conditionDefined: weather[0].description,
+          condition: weather[0].main,
+          humidity: main.humidity,
+          weatherIcon: `http://openweathermap.org/img/w/${weather[0].icon}.png`
+        }
+        dispatch( {type: LOAD_DATA, payload: returnObj} );
 
-//     })
-//   }
-// }
+      })
+      .catch( error => {
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            //  console.log(error.response.data.message);
+            //  console.log(error.response.status);
+            //  console.log(error.response.headers);
+            console.log(`Error Response: ${error.response}`);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(`Error Request: ${error.request}`);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log(`General Error: ${error.message}`);
+        }
+        console.log("Error has occured in loading data...");
+        console.log(error);
+        dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingError', true) );
+
+    })
+  }
+}
 
 // export const edit = (id, obj) => {
 //   return (dispatch, getState, url) => {
