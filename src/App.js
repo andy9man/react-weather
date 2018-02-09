@@ -27,7 +27,7 @@ class App extends Component {
           <div className='card'>
             <Switch>
               <Route exact path='/' component={Home} />
-              <Route exact path='/:city' component={City} />
+              <Route path='/:city' render={(props) => {console.log(props); return <City {...props}/>}} />
               <Route component={NoMatch} />
             </Switch>
           </div>

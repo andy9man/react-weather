@@ -2,17 +2,24 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {get} from '../store/actions';
+import { reducer } from '../store/reducer';
 
 class City extends Component {
   componentDidMount(){
     const {city} = this.props.match.params
-    console.log(city)
-    this.props.history.push('/' + city)
     this.props.getCityWeather(city)
+  }
+
+  componentWillReceiveProps(props){
+    const {city} = this.props.match.params
+    console.log(props)
+    console.log(this.props)
+    city !== props.match.params.city && this.props.getCityWeather(city)
   }
 
   render(){
     const {city} = this.props.match.params
+    console.log(city)
     // this.props.getCityWeather(city)
     // this.props.history.push('/' + city)
 
