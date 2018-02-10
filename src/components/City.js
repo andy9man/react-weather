@@ -41,7 +41,7 @@ class City extends Component {
                       <li><strong>Low: </strong>{weather.tempMin}</li>
                     </ul>
                   </li>
-                  <li><strong>Status: </strong>{weather.conditionDefined}</li>
+                  <li><strong>Status: </strong>{weather.conditionDefined} <img style={{height: 15}} src={weather.weatherIcon} /></li>
                 </ul>
               </div>
               <div className="small-12 medium-6 columns">
