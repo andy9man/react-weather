@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import {get} from '../store/actions';
-import { reducer } from '../store/reducer';
 
 class City extends Component {
   componentDidMount() {
