@@ -24,7 +24,7 @@ class City extends Component {
           loadingData ?
             <div className="row text-center">
               <div className="small-12 medium-6 columns">
-                <span class="loading-indicator medium"></span>
+                <span className="loading-indicator medium"></span>
               </div>
             </div>
           :
