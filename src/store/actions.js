@@ -21,7 +21,7 @@ export const get = (city) => {
     dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingData', true) );
     console.log(`Getting Data... ${url}`);
 
-    axios.get(url, 
+    axios.get(url,
       {params: {
         APPID: '341b9c981559718765cdcfba706783db',
         units: 'imperial',
@@ -34,8 +34,9 @@ export const get = (city) => {
         console.log("response")
         console.log(response)
         const returnObj = {
+          cityName: city,
           temp: Math.round(main.temp),
-          average: Math.round((main.temp_min+main.temp_max)/2),
+          tempAve: Math.round((main.temp_min+main.temp_max)/2),
           tempMin: Math.round( main.temp_min ),
           tempMax: Math.round( main.temp_max ),
           conditionDefined: weather[0].description,
@@ -44,7 +45,7 @@ export const get = (city) => {
           weatherIcon: `http://openweathermap.org/img/w/${weather[0].icon}.png`
         }
         dispatch( {type: LOAD_DATA, payload: returnObj} );
-
+        dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingData', false) );
       })
       .catch( error => {
         if (error.response) {

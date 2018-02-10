@@ -1,4 +1,4 @@
-import { LOAD_DATA } from './actions'
+import { LOAD_DATA, DATA_STATUS_HANDLER } from './actions'
 
 // const CreateUid = () => {
 //     // Math.random should be unique because of its seeding algorithm.
@@ -8,7 +8,7 @@ import { LOAD_DATA } from './actions'
 //  };
 
 const initialState = {
-    iCity: [
+    city: [
         'Seattle',
         'San Jose',
         'Burbank',
@@ -16,13 +16,17 @@ const initialState = {
         'Washington',
         'Chicago',
         'Tulsa',
-    ]
+    ],
+    weather: undefined,
+    loadingData: true
 }
 
 export const reducer = (state = initialState, action) => {
     switch(action.type){
-        case LOAD_DATA: 
-            return {...state, weather: action.payload}
+        case LOAD_DATA:
+            return {...state, weather: action.payload};
+        case DATA_STATUS_HANDLER:
+            return { ...state, [action.payload.type]: action.payload.result, displayAlert: action.payload.result};
         default:
             return state;
     }

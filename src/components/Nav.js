@@ -6,7 +6,7 @@ const Nav = props => {
     return (
         <nav>
             <ul className="tabs padding-bottom-medium">
-                { props.city.map((city, idx) => 
+                { props.city.map((city, idx) =>
                     (
                     <CustomNav to={`/${city}`} key={idx} label={city} generalClassName="tab-title" activeOnlyWhenExact={true} />)
                )}
@@ -17,7 +17,7 @@ const Nav = props => {
 
 const mapStateToProps = (state) => {
     return {
-        city: state.iCity
+        city: state.city
     }
 }
 
