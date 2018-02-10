@@ -5,9 +5,9 @@ export const DATA_STATUS_HANDLER = 'DATA_STATUS_HANDLER';
 export const LOAD_DATA = 'LOAD_DATA';
 export const ADD_CITY = 'ADD_CITY'
 
-export const addCity = (payload) => {
-  return {type: ADD_CITY, payload}
-}
+// export const addCity = (payload) => {
+//   return {type: ADD_CITY, payload}
+// }
 
 export const dataResultHandler = (actionType, stateObjectType, stateObjectResult) => {
   return {
@@ -70,6 +70,50 @@ export const get = (city) => {
         console.log("Error has occured in loading data...");
         console.log(error);
         dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingError', true) );
+
+    })
+  }
+}
+
+export const addCity = (city) => {
+  return (dispatch, getState, url) => {
+    dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingData', true) );
+    console.log(`Getting Data... ${url}`);
+
+    axios.get(url,
+      {params: {
+        APPID: '341b9c981559718765cdcfba706783db',
+        units: 'imperial',
+        q: `${city}`
+      }}
+    )
+      .then( (response) => {
+        
+        dispatch( {type: ADD_CITY, payload: city} );
+        // dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingData', false) );
+      })
+      .catch( error => {
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            //  console.log(error.response.data.message);
+            //  console.log(error.response.status);
+            //  console.log(error.response.headers);
+            console.log(`Error Response: ${error.response}`);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(`Error Request: ${error.request}`);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log(`General Error: ${error.message}`);
+        }
+        console.log("Error has occured in loading data...");
+        console.log(error);
+        dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingError', true) );
+       
+        
 
     })
   }
