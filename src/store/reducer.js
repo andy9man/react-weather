@@ -1,4 +1,4 @@
-import { LOAD_DATA, DATA_STATUS_HANDLER } from './actions'
+import { ADD_CITY, LOAD_DATA, DATA_STATUS_HANDLER } from './actions'
 
 // const CreateUid = () => {
 //     // Math.random should be unique because of its seeding algorithm.
@@ -23,6 +23,8 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
     switch(action.type){
+        case ADD_CITY:
+            return {...state, city: action.payload}
         case LOAD_DATA:
             return {...state, weather: action.payload};
         case DATA_STATUS_HANDLER:

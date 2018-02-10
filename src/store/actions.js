@@ -3,8 +3,11 @@ import axios from 'axios';
 export const API_URL = "http://api.openweathermap.org/data/2.5/weather";
 export const DATA_STATUS_HANDLER = 'DATA_STATUS_HANDLER';
 export const LOAD_DATA = 'LOAD_DATA';
+export const ADD_CITY = 'ADD_CITY'
 
-
+export const addCity = (payload) => {
+  return {type: ADD_CITY, payload}
+}
 
 export const dataResultHandler = (actionType, stateObjectType, stateObjectResult) => {
   return {

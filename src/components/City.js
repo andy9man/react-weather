@@ -49,7 +49,7 @@ class City extends Component {
               <div className="small-12 medium-6 columns">
                 <img
                   src="https://tr4.cbsistatic.com/hub/i/r/2017/01/20/ee6024e1-e4fc-41f9-86ac-e3218acbd53f/resize/770x/19d4850a976902db6b5bd1c898c41978/svetlana57-seattle.jpg"
-                  alt="{city}"
+                  alt={city}
                 />
               </div>
 

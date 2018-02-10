@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import './App.css';
 import Nav from './components/Nav';
 import City from './components/City';
+import AddCity from './components/AddCity';
 import {
   Switch,
   Route,
-  BrowserRouter
+  BrowserRouter,
+  Link
 } from 'react-router-dom';
 import {get} from './store/actions';
 import {connect} from 'react-redux';
@@ -25,12 +27,14 @@ class App extends Component {
       <BrowserRouter>
         <div className="App margin-horiz-large margin-vert-large">
           <h1>Hojo Weather Forecast</h1>
+          <div><Link to='/add'>Add a weather forecast</Link></div>
           <Nav />
             <div className="row">
               <div className="small-12 medium-10 large-8 columns">
                 <div className='card'>
                   <Switch>
                     <Route exact path='/' component={Home} />
+                    <Route exact path='/add' component={AddCity} />
                     <Route exact path='/:city' component={City} />
                     <Route component={NoMatch} />
                   </Switch>
