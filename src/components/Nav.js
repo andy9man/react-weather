@@ -3,6 +3,8 @@ import {CustomNav} from './helper';
 import {connect} from 'react-redux';
 
 const Nav = props => {
+    console.log('nav props')
+    console.log(props)
     return (
         <nav>
             <ul className="tabs padding-bottom-medium">

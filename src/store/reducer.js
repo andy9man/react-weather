@@ -22,9 +22,12 @@ const initialState = {
 }
 
 export const reducer = (state = initialState, action) => {
+    
+    console.log('value of payload in reducer')
+    console.log(action.payload)
     switch(action.type){
         case ADD_CITY:
-            return {...state, city: action.payload}
+            return {...state, city: state.city.concat(action.payload)}
         case LOAD_DATA:
             return {...state, weather: action.payload};
         case DATA_STATUS_HANDLER:
