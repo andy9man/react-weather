@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+<<<<<<< HEAD
+=======
+import { BrowserRouter } from 'react-router-dom';
+>>>>>>> 46b95ddd858230a81d2615a5b9ed9305e32d6957
 import store from './store';
 import App from './App';
 import './index.css';
