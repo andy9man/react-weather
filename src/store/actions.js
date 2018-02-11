@@ -20,16 +20,17 @@ export const dataResultHandler = (actionType, stateObjectType, stateObjectResult
   }
 }
 
-export const get = (city) => {
+export const get = (city, units = 'imperial') => {
   return (dispatch, getState, url) => {
     dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingError', false) );
     dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingData', true) );
     console.log(`Getting Data... ${url}`);
+    units = units ? 'imperial' : 'metric'
 
     axios.get(url,
       {params: {
         APPID: '341b9c981559718765cdcfba706783db',
-        units: 'imperial',
+        units: units,
         q: `${city}`
       }}
     )

@@ -11,14 +11,21 @@ const cityImageHelper = (city, cityArray) => {
   return (cityObj === undefined) ? noImage : cityObj.image === "" ? noImage : cityObj.image;
 }
 class City extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      farenheit: true
+    }
+  }
+
   componentDidMount() {
     const {city} = this.props.match.params;
-    this.props.getCityWeather(city);
+    this.props.getCityWeather(city, this.state.farenheit);
   }
 
   componentWillReceiveProps(newProps) {
     if( this.props.match.params.city !== newProps.match.params.city ) {
-      this.props.getCityWeather(newProps.match.params.city);
+      this.props.getCityWeather(newProps.match.params.city, this.state.farenheit);
     }
   }
 
@@ -75,6 +82,27 @@ class City extends Component {
                           <li className="city-details"><strong>Status: </strong>{weather.condition}</li>
                         </ul>
 
+                          <div className="switch switch-text small text-center">
+                              <input
+                                className="switch-input"
+                                id="tempToggle"
+                                type="checkbox"
+                                checked={this.state.farenheit}
+                                onClick={(e) => {
+
+                                  //Needs to be !this.state.farenheit because we haven't updated state yet
+                                  this.props.getCityWeather(city, !this.state.farenheit);
+
+                                  this.setState( {farenheit: !this.state.farenheit})
+                                }}
+                                name="tempToggle"
+                              />
+                              <label className="switch-paddle" htmlFor="tempToggle">
+                                  <span className="switch-active text-left" aria-hidden="true">Farenheit</span>
+                                  <span className="switch-inactive" aria-hidden="true">Celcius</span>
+                              </label>
+                          </div>
+
                       </div>
                       <div className="small-12 medium-8 columns">
                         <img
@@ -103,8 +131,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getCityWeather(city){
-      dispatch(get(city))
+    getCityWeather(city, units){
+      dispatch(get(city, units))
     }
   }
 
