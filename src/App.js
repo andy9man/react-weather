@@ -3,7 +3,6 @@ import './App.css';
 import Nav from './components/Nav';
 import City from './components/City';
 import AddCity from './components/AddCity';
-import NotFound from './components/NotFound';
 import {
   Switch,
   Route,
@@ -36,7 +35,6 @@ class App extends Component {
                   <Switch>
                     <Route exact path='/' component={Home} />
                     <Route exact path='/add' component={AddCity} />
-                    <Route exact path='/notFound' component={NotFound} />
                     <Route exact path='/:city' component={City} />
                     <Route component={NoMatch} />
                   </Switch>

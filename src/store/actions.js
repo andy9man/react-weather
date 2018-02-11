@@ -6,9 +6,6 @@ export const LOAD_DATA = 'LOAD_DATA';
 export const ADD_CITY = 'ADD_CITY';
 export const FLAG_RESET = "FLAG_RESET";
 
-// export const addCity = (payload) => {
-//   return {type: ADD_CITY, payload}
-// }
 
 export const dataResultHandler = (actionType, stateObjectType, stateObjectResult) => {
   return {
