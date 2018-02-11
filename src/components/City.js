@@ -63,16 +63,16 @@ class City extends Component {
 
                       <div className="small-12 medium-4 columns">
                         <ul style={ {listStyle: 'none'} }>
-                          <li><strong>Humidity: </strong>{weather.humidity}</li>
-                          <li>
+                          <li className="city-details"><strong>Humidity: </strong>{weather.humidity}%</li>
+                          <li className="city-details">
                             <strong>Temperature: </strong>
-                            <ul style={ {listStyle: 'none'} }>
-                              <li><strong>Average: </strong>{weather.tempAve}</li>
-                              <li><strong>High: </strong>{weather.tempMax}</li>
-                              <li><strong>Low: </strong>{weather.tempMin}</li>
+                            <ul style={ {listStyle: 'none', marginTop: 20} }>
+                              <li className="city-details"><strong>Average: </strong>{weather.tempAve}&deg;</li>
+                              <li className="city-details"><strong>High: </strong>{weather.tempMax}&deg;</li>
+                              <li className="city-details"><strong>Low: </strong>{weather.tempMin}&deg;</li>
                             </ul>
                           </li>
-                          <li><strong>Status: </strong>{weather.condition}</li>
+                          <li className="city-details"><strong>Status: </strong>{weather.condition}</li>
                         </ul>
 
                       </div>

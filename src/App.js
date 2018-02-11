@@ -29,9 +29,9 @@ class App extends Component {
         <div className="App margin-horiz-large margin-vert-large">
           <h1>Hojo Weather Forecast</h1>
           <div><Link to='/add'>Add a weather forecast</Link></div>
-          <Nav city={this.props.city} />
             <div className="row">
-              <div className="small-12 medium-10 large-8 columns">
+              <div className="small-12 medium-10 large-8 medium-centered columns">
+                <Nav city={this.props.city} />
                 <div className='card'>
                   <Switch>
                     <Route exact path='/' component={Home} />
