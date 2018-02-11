@@ -1,6 +1,5 @@
 import React from 'react';
 import {CustomNav} from './helper';
-import {connect} from 'react-redux';
 
 const Nav = props => {
     console.log('nav props')
@@ -10,17 +9,11 @@ const Nav = props => {
             <ul className="tabs padding-bottom-medium">
                 { props.city.map((city, idx) =>
                     (
-                    <CustomNav to={`/${city}`} key={idx} label={city} generalClassName="tab-title" activeOnlyWhenExact={true} />)
+                    <CustomNav to={`/${city.name}`} key={idx} label={city.name} generalClassName="tab-title" activeOnlyWhenExact={true} />)
                )}
             </ul>
         </nav>
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        city: state.city
-    }
-}
-
-export default connect(mapStateToProps)(Nav)
+export default Nav;

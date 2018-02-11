@@ -3,7 +3,8 @@ import axios from 'axios';
 export const API_URL = "http://api.openweathermap.org/data/2.5/weather";
 export const DATA_STATUS_HANDLER = 'DATA_STATUS_HANDLER';
 export const LOAD_DATA = 'LOAD_DATA';
-export const ADD_CITY = 'ADD_CITY'
+export const ADD_CITY = 'ADD_CITY';
+export const FLAG_RESET = "FLAG_RESET";
 
 // export const addCity = (payload) => {
 //   return {type: ADD_CITY, payload}
@@ -21,6 +22,7 @@ export const dataResultHandler = (actionType, stateObjectType, stateObjectResult
 
 export const get = (city) => {
   return (dispatch, getState, url) => {
+    dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingError', false) );
     dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingData', true) );
     console.log(`Getting Data... ${url}`);
 
@@ -70,15 +72,15 @@ export const get = (city) => {
         console.log("Error has occured in loading data...");
         console.log(error);
         dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingError', true) );
+        dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingData', false) );
 
     })
   }
 }
 
-export const addCity = (city) => {
+export const addCity = (city, cityImage) => {
   return (dispatch, getState, url) => {
-    dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingData', true) );
-    console.log(`Getting Data... ${url}`);
+    console.log(`Checking if city exists... ${url}`);
 
     axios.get(url,
       {params: {
@@ -88,8 +90,9 @@ export const addCity = (city) => {
       }}
     )
       .then( (response) => {
-        
-        dispatch( {type: ADD_CITY, payload: city} );
+        console.log(`${city} was found... adding it to menu`);
+        dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'addCitySuccess', true) );
+        dispatch( {type: ADD_CITY, payload: {name: city, image: cityImage} } );
         // dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingData', false) );
       })
       .catch( error => {
@@ -111,9 +114,9 @@ export const addCity = (city) => {
         }
         console.log("Error has occured in loading data...");
         console.log(error);
-        dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'loadingError', true) );
-       
-        
+        dispatch( dataResultHandler(DATA_STATUS_HANDLER, 'addCityError', true) );
+
+
 
     })
   }
